@@ -30,7 +30,10 @@ class Tools(System):
 
         if name == "magento":
             config = self.config["magento"].copy()
-            config["user"] = user if user else "root"
+            if user:
+                config["user"] = user
+            elif not config["user"]:
+                config["user"] = "root"
             MagentoTerminal(config, self.containers).loop()
         elif name == "xdebug":
             config = self.config["xdebug"].copy()
